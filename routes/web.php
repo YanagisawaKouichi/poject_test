@@ -17,15 +17,14 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function() {
     Route::get('news/create',
-'Admin\NewsController@add');
+'Admin\NewsController@add')->middleware('auth');
 });
 
 Route::group(['prefix' => 'admin'], function() {
-    Route::get('admin/profile/create',
-'ProfileController\@add');
+    Route::get('profile/create','Admin\ProfileController\@add');
+    Route::get('profile/edit','Admin\ProfileController@edit');
 });
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('admin/profile/edit',
-'Admin\ProfileController@edit');
-});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
